@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -32,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         ageEditText = findViewById(R.id.ageEditText)
         saveButton = findViewById(R.id.saveButton)
         userListView = findViewById(R.id.userListView)
-
         userAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, mutableListOf())
         userListView.adapter = userAdapter
 
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             if (name.isNotEmpty() && age != null) {
                 val user = User(name, age)
                 userList.add(user)
-                userAdapter.add("${user.name}, ${user.age}")
+                userAdapter.add("${user.name}: ${user.age}")
                 nameEditText.text.clear()
                 ageEditText.text.clear()
             }
@@ -57,13 +57,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun showDeleteConfirmationDialog(position: Int, user: User) {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle(" MyDialog")
-        builder.setMessage("Вы уверены что хотите удалить ${user.name}?")
-        builder.setPositiveButton("Да") { _, _ ->
+        builder.setTitle(getString(R.string.my_dialog))
+        builder.setMessage(getString(R.string.are_you_sure, user.name))
+        builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
             userList.removeAt(position)
             userAdapter.remove(userAdapter.getItem(position))
+            Toast.makeText(this, getString(R.string.delete, user.name), Toast.LENGTH_LONG).show()
         }
-        builder.setNegativeButton("Нет") { dialog, _ ->
+        builder.setNegativeButton(getString(R.string.no)) { dialog, _ ->
             dialog.dismiss()
         }
         builder.create().show()

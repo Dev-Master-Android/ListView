@@ -4,4 +4,9 @@
     <string name="enter_age">Введите возраст</string>
     <string name="save">Сохранить</string>
     <string name="exit">Выход</string>
+    <string name="are_you_sure">Вы уверены что хотите удалить %1$s?</string>
+    <string name="delete">%1$s удален(а)</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="my_dialog">MyDialog</string>
 </resources>
