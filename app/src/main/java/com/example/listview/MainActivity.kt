@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 
@@ -49,9 +50,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         userListView.setOnItemClickListener { _, _, position, _ ->
+            val user = userList[position]
+            showDeleteConfirmationDialog(position, user)
+        }
+    }
+
+    private fun showDeleteConfirmationDialog(position: Int, user: User) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(" MyDialog")
+        builder.setMessage("Вы уверены что хотите удалить ${user.name}?")
+        builder.setPositiveButton("Да") { _, _ ->
             userList.removeAt(position)
             userAdapter.remove(userAdapter.getItem(position))
         }
+        builder.setNegativeButton("Нет") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.create().show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
