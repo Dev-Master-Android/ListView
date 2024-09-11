@@ -33,6 +33,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -45,4 +48,14 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // ViewModel
+    implementation (libs.androidx.lifecycle.viewmodel)
+    // LiveData
+    implementation (libs.androidx.lifecycle.livedata)
+    // Lifecycles only (without ViewModel or LiveData)
+    implementation (libs.androidx.lifecycle.runtime)
+    //Gson
+    implementation (libs.gson)
+
 }
